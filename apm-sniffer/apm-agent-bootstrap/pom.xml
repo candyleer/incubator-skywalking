@@ -73,8 +73,8 @@
             <artifactId>disruptor</artifactId>
             <version>${disruptor.version}</version>
         </dependency>
-
     </dependencies>
     <build>
+        <finalName>skywalking-agent-bootstrap</finalName>
     </build>
 </project>

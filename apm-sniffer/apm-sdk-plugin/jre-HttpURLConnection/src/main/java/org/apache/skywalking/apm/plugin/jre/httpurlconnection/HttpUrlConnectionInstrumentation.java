@@ -47,23 +47,22 @@ public class HttpUrlConnectionInstrumentation extends ClassEnhancePluginDefine {
 
     @Override
     public InstanceMethodsInterceptPoint[] getInstanceMethodsInterceptPoints() {
-        return new InstanceMethodsInterceptPoint[]{
-                new InstanceMethodsInterceptPoint() {
-                    @Override
-                    public ElementMatcher<MethodDescription> getMethodsMatcher() {
-                        return named("connect");
-                    }
+        return new InstanceMethodsInterceptPoint[]{new InstanceMethodsInterceptPoint() {
+            @Override
+            public ElementMatcher<MethodDescription> getMethodsMatcher() {
+                return named("connect");
+            }
 
-                    @Override
-                    public String getMethodsInterceptor() {
-                        return "org.apache.skywalking.apm.plugin.jre.httpurlconnection.Interceptor";
-                    }
+            @Override
+            public String getMethodsInterceptor() {
+                return "org.apache.skywalking.apm.plugin.jre.httpurlconnection.Interceptor";
+            }
 
-                    @Override
-                    public boolean isOverrideArgs() {
-                        return false;
-                    }
-                }
+            @Override
+            public boolean isOverrideArgs() {
+                return false;
+            }
+        }
         };
     }
 

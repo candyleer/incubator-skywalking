@@ -18,14 +18,6 @@
 
 package org.apache.skywalking.apm.agent.core.plugin.bootstrap;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.lang.instrument.Instrumentation;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import javassist.ClassPool;
 import javassist.CtClass;
 import javassist.CtField;
@@ -42,6 +34,16 @@ import org.apache.skywalking.apm.agent.core.plugin.interceptor.ConstructorInterc
 import org.apache.skywalking.apm.agent.core.plugin.interceptor.InstanceMethodsInterceptPoint;
 import org.apache.skywalking.apm.agent.core.plugin.interceptor.StaticMethodsInterceptPoint;
 import org.apache.skywalking.apm.agent.core.plugin.loader.AgentClassLoader;
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.lang.instrument.Instrumentation;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.jar.JarFile;
 
 /**
  * If there is Bootstrap instrumentation plugin declared in plugin list, BootstrapInstrumentBoost inject the necessary
@@ -70,14 +72,24 @@ public class BootstrapInstrumentBoost {
         Instrumentation instrumentation) throws PluginException {
 
         Map<String, byte[]> classesTypeMap = new HashMap<String, byte[]>();
-
-        if (!prepareJREInstrumentation(pluginFinder, classesTypeMap)) {
+        boolean shouldInstrumentBootstrap = prepareJREInstrumentation(pluginFinder, classesTypeMap);
+        JarFile jarFile = null;
+        try {
+            jarFile = new JarFile(new File("/Users/lican/github/skywalking/apm-sniffer/apm-agent-bootstrap/target/skywalking-agent-bootstrap.jar"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        instrumentation.appendToSystemClassLoaderSearch(jarFile);
+        if (!shouldInstrumentBootstrap) {
             return agentBuilder;
+        } else {
+//            instrumentation.appendToBootstrapClassLoaderSearch(jarFile);
         }
 
         for (String highPriorityClass : HIGH_PRIORITY_CLASSES) {
             loadHighPriorityClass(classesTypeMap, highPriorityClass);
         }
+
 
         File temp = null;
         try {
