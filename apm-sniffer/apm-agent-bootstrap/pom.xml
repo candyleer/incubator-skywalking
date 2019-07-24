@@ -1,0 +1,80 @@
+<!--
+  ~ Licensed to the Apache Software Foundation (ASF) under one or more
+  ~ contributor license agreements.  See the NOTICE file distributed with
+  ~ this work for additional information regarding copyright ownership.
+  ~ The ASF licenses this file to You under the Apache License, Version 2.0
+  ~ (the "License"); you may not use this file except in compliance with
+  ~ the License.  You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  ~
+  -->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.apache.skywalking</groupId>
+        <artifactId>apm-sniffer</artifactId>
+        <version>6.3.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>apm-agent-bootstrap</artifactId>
+    <packaging>jar</packaging>
+
+    <name>apm-agent-bootstrap</name>
+    <url>http://maven.apache.org</url>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <jetty.version>9.4.2.v20170220</jetty.version>
+        <grpc.version>1.14.0</grpc.version>
+        <guava.version>20.0</guava.version>
+        <bytebuddy.version>1.9.2</bytebuddy.version>
+        <javaassist.version>3.23.2-GA</javaassist.version>
+        <disruptor.version>3.3.6</disruptor.version>
+        <wiremock.version>2.6.0</wiremock.version>
+        <netty-tcnative-boringssl-static.version>2.0.7.Final</netty-tcnative-boringssl-static.version>
+        <os-maven-plugin.version>1.4.1.Final</os-maven-plugin.version>
+        <shade.package>org.apache.skywalking.apm.dependencies</shade.package>
+        <shade.com.lmax.disruptor.source>com.lmax.disruptor</shade.com.lmax.disruptor.source>
+        <shade.com.lmax.disruptor.target>${shade.package}.${shade.com.lmax.disruptor.source}
+        </shade.com.lmax.disruptor.target>
+        <shade.com.google.source>com.google</shade.com.google.source>
+        <shade.com.google.target>${shade.package}.${shade.com.google.source}</shade.com.google.target>
+        <shade.io.grpc.source>io.grpc</shade.io.grpc.source>
+        <shade.io.grpc.target>${shade.package}.${shade.io.grpc.source}</shade.io.grpc.target>
+        <shade.io.netty.source>io.netty</shade.io.netty.source>
+        <shade.io.netty.target>${shade.package}.${shade.io.netty.source}</shade.io.netty.target>
+        <shade.io.opencensus.source>io.opencensus</shade.io.opencensus.source>
+        <shade.io.opencensus.target>${shade.package}.${shade.io.opencensus.source}</shade.io.opencensus.target>
+        <shade.javaassist.source>javassist</shade.javaassist.source>
+        <shade.javaassist.target>${shade.package}.${shade.javaassist.source}</shade.javaassist.target>
+        <ststem-rules.version>1.18.0</ststem-rules.version>
+    </properties>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>net.bytebuddy</groupId>
+            <artifactId>byte-buddy</artifactId>
+            <version>${bytebuddy.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.lmax</groupId>
+            <artifactId>disruptor</artifactId>
+            <version>${disruptor.version}</version>
+        </dependency>
+
+    </dependencies>
+    <build>
+    </build>
+</project>

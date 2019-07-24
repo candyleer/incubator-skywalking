@@ -63,6 +63,11 @@
     <dependencies>
         <dependency>
             <groupId>org.apache.skywalking</groupId>
+            <artifactId>apm-agent-bootstrap</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.skywalking</groupId>
             <artifactId>apm-network</artifactId>
             <version>${project.version}</version>
         </dependency>
@@ -186,6 +191,7 @@
                                     <exclude>net.bytebuddy:byte-buddy:jar:</exclude>
                                     <exclude>com.google.errorprone:error_prone_annotations:jar:</exclude>
                                     <exclude>com.google.code.findbugs:jsr305:jar:</exclude>
+                                    <exclude>org.apache.skywalking:apm-agent-bootstrap:jar:</exclude>
                                 </excludes>
                             </artifactSet>
                             <relocations>

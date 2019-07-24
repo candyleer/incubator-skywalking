@@ -18,6 +18,7 @@
 
 package org.apache.skywalking.apm.agent.core.plugin.bootstrap.template;
 
+import java.io.PrintStream;
 import java.lang.reflect.Method;
 import java.util.concurrent.Callable;
 import net.bytebuddy.implementation.bind.annotation.AllArguments;
@@ -70,7 +71,9 @@ public class InstanceMethodInterTemplate {
         @Origin Method method
     ) throws Throwable {
         EnhancedInstance targetObject = (EnhancedInstance)obj;
-
+        PrintStream out = System.out;
+        out.println("Bootstrap EnhancedInstance classloader:" + EnhancedInstance.class.getClassLoader());
+        out.println("current classloader:" + Thread.currentThread().getContextClassLoader());
         prepare();
 
         MethodInterceptResult result = new MethodInterceptResult();
