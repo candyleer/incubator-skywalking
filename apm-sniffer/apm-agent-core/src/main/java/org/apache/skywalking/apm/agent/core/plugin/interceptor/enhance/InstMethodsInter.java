@@ -19,6 +19,7 @@
 
 package org.apache.skywalking.apm.agent.core.plugin.interceptor.enhance;
 
+import java.io.PrintStream;
 import java.lang.reflect.Method;
 import java.util.concurrent.Callable;
 import net.bytebuddy.implementation.bind.annotation.AllArguments;
@@ -76,7 +77,9 @@ public class InstMethodsInter {
         @Origin Method method
     ) throws Throwable {
         EnhancedInstance targetObject = (EnhancedInstance)obj;
-
+        PrintStream out = System.out;
+        out.println("InstMethodsInter EnhanceInstance classloader:" + EnhancedInstance.class.getClassLoader());
+        out.println("InstMethodsInter current classloader:" + Thread.currentThread().getContextClassLoader());
         MethodInterceptResult result = new MethodInterceptResult();
         try {
             interceptor.beforeMethod(targetObject, method, allArguments, method.getParameterTypes(),
